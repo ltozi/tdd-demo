@@ -1,13 +1,17 @@
 package com.kaleyra.tdd;
 
+import org.hamcrest.core.AnyOf;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.internal.matchers.Any;
 
-import java.util.Random;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class ApplicationTest {
@@ -27,6 +31,13 @@ public class ApplicationTest {
     @After
     public void teardownAfterEach() {
         System.out.println("After each test...");
+    }
+
+    @After
+    public void settingNullCriticalObject() {
+        System.out.println("Setting null that");
+        System.out.println("Setting null that");
+        System.out.println("Setting null that");
     }
 
     @Test
@@ -56,6 +67,58 @@ public class ApplicationTest {
         assertNotNull(s);
 
         assertTrue("Expected that age is greater than 18", expected < valueReturnedBySomeMethod);
+    }
+
+    @Test
+    public void shouldReturnEmptyUserIfUserNotFound() throws Exception {
+        //        Arrange: The data used in a test should not depend on the environment in which the test is running. All the data needed for a test should be arranged as part of the test.
+        Application application = new Application();
+
+        //        Act: Invoke the actual method under test.
+        User emptyUser = application.queryForUser(null);
+
+        //        Assert: A test method should test for a single logical outcome, implying that typically there
+        //        should be only a single logical assert. A logical assert could have multiple physical asserts as
+        //        long as all the asserts test the state of a single object. In a few cases, an action can update
+        //        multiple objects.
+        assertNotNull(emptyUser);
+    }
+
+    @Test
+    public void shouldReturnUserWhenNameIsProvided() throws Exception {
+        //Arrange: The data used in a test should not depend on the environment in which the test is running. All the data needed for a test should be arranged as part of the test.
+        DBservice mockDbService = mock(DBservice.class);
+
+        User user = new User();
+        user.setAge(35);
+
+        when(mockDbService.load(anyString())).thenReturn(user);
+
+        Application application = new Application(mockDbService);
+
+        //        Act: Invoke the actual method under test.
+        User emptyUser = application.queryForUser("luigi");
+
+        //Assert
+        assertNotNull(emptyUser);
+    }
+
+    @Test(expected = Exception.class)
+    public void shouldThrowExceptionWhenAgeLowerThanLimit() throws Exception {
+        //Arrange: The data used in a test should not depend on the environment in which the test is running. All the data needed for a test should be arranged as part of the test.
+        DBservice mockDbService = mock(DBservice.class);
+        User user = new User();
+        user.setAge(15);
+
+        when(mockDbService.load(anyString())).thenReturn(user);
+
+        Application application = new Application(mockDbService);
+
+        //        Act: Invoke the actual method under test.
+        User emptyUser = application.queryForUser("luigi");
+
+        //Assert
+        assertNotNull(emptyUser);
     }
 
 
