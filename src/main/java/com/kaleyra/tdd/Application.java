@@ -55,6 +55,9 @@ public class Application {
         if(user.getAge() < 18) {
             throw new Exception("user too young! He should not exist here");
         }
+        if(user.getAge() > 120) {
+            throw new Exception("user too young! He should not exist here");
+        }
 
         return user;
     }

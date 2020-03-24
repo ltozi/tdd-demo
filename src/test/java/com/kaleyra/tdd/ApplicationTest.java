@@ -25,7 +25,6 @@ public class ApplicationTest {
     @Before
     public void setupBeforeEach() {
         System.out.println("Beftore each test...");
-        System.out.println("Beftore each test...");
     }
 
     @After
@@ -35,8 +34,6 @@ public class ApplicationTest {
 
     @After
     public void settingNullCriticalObject() {
-        System.out.println("Setting null that");
-        System.out.println("Setting null that");
         System.out.println("Setting null that");
     }
 
@@ -108,7 +105,7 @@ public class ApplicationTest {
         //Arrange: The data used in a test should not depend on the environment in which the test is running. All the data needed for a test should be arranged as part of the test.
         DBservice mockDbService = mock(DBservice.class);
         User user = new User();
-        user.setAge(15);
+        user.setAge(8);
 
         when(mockDbService.load(anyString())).thenReturn(user);
 
@@ -121,5 +118,21 @@ public class ApplicationTest {
         assertNotNull(emptyUser);
     }
 
+    @Test(expected = Exception.class)
+    public void shouldThrowExceptionWhenAgeHigherThanLimit() throws Exception {
+        //Arrange: The data used in a test should not depend on the environment in which the test is running. All the data needed for a test should be arranged as part of the test.
+        DBservice mockDbService = mock(DBservice.class);
+        User user = new User();
+        user.setAge(144);
 
+        when(mockDbService.load(anyString())).thenReturn(user);
+
+        Application application = new Application(mockDbService);
+
+        //        Act: Invoke the actual method under test.
+        User emptyUser = application.queryForUser("Daniele");
+
+        //Assert
+        assertNotNull(emptyUser);
+    }
 }
