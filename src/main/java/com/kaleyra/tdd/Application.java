@@ -11,6 +11,16 @@ public class Application {
         this.dBservice = dBservice;
     }
 
+    /**
+     * We must validate
+     *
+     * user.setName("Luigi"); //Not empty
+     * user.setUsername("ltozi");//Not empty //Can contain only letters and max 10 chars
+     * user.setEmail("luigi.toziani@kaleyra.com");//Not empty //Email format must be valid
+     * user.setAge(35);//Not empty //Not negative and age greater than 18
+     *
+     * @param user
+     */
     public void save(User user) {
 
         /*
