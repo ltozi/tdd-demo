@@ -23,23 +23,28 @@ public class Application {
      */
     public void save(User user) {
 
-        /*
-        *         if (action == addition) then
-            context.setStrategy(new ConcreteStrategyAdd())
 
-        if (action == subtraction) then
-            context.setStrategy(new ConcreteStrategySubtract())
+        // Validate 'name' and 'user name'
+        Context<String> context1 = new Context<String>();
+        context1.registerValidator(new NotEmptyValidator());
+        context1.registerValidator(new RegexValidator("[a-zA-Z]{10}"));
+        context1.executeValidation(user.getName());
+        context1.executeValidation(user.getUserName());
 
-        if (action == multiplication) then
-            context.setStrategy(new ConcreteStrategyMultiply())
+        // Validate 'email'
+        String EMAIL_PATTERN ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        Context<String> context2 = new Context<String>();
+        context2.registerValidator(new RegexValidator( EMAIL_PATTERN));
+        context2.executeValidation(user.getEmail());
 
-        result = context.executeStrategy(First number, Second number)*/
+        // Validate 'age'
+        Context<Integer> context3 = new Context<Integer>();
+        context3.registerValidator(new RangeValidator(18,60));
+        context3.executeValidation(user.getAge());
 
-        Context context = new Context();
-        context.registerValidator(new NotEmptyValidator());
 
 
-        context.executeValidation(user.getName());
+
 
         //TODO other validations
 
