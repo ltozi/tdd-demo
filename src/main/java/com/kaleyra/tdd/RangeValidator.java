@@ -15,8 +15,6 @@ public class RangeValidator implements Validator<Integer> {
 	@Override
 	public void validate(Integer arg) throws IllegalArgumentException {
 		 if (arg < min) throw new IllegalArgumentException("too low value");
-
 		 if (arg > max) throw new IllegalArgumentException("too high value");
-		
 	}
 }

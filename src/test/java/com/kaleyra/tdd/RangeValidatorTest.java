@@ -12,21 +12,24 @@ public class RangeValidatorTest {
 	@Test
 	public void shouldValidateRangeCorrectly() {
 		// Arrange
-		
-		for (int i = 0; i<500; i++) {
-		RangeValidator rv = new RangeValidator(i, i+20);
-		// Act
-		rv.validate(i +  r.nextInt(20));
+
+		for (int i = 0; i < 500; i++) {
+			RangeValidator rv = new RangeValidator(i, i + 20);
+			// Act
+			rv.validate(i + r.nextInt(20));
 		}
 		// Assert (it is correct!)
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldValidateRangeError() {
 		// Arrange
 		RangeValidator rv = new RangeValidator(0, 400);
 		// Act
-		rv.validate(- r.nextInt(400));
+		if (r.nextBoolean())
+			rv.validate(-r.nextInt(400));
+		else
+			rv.validate(400 + r.nextInt(400));
 		// Assert (it is correct!)
 	}
 
