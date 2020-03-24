@@ -24,8 +24,8 @@ public class ApplicationTest {
 
     @Before
     public void setupBeforeEach() {
-        System.out.println("Beftore each test...");
-        System.out.println("Beftore each test...");
+        System.out.println("Before each test...");
+        System.out.println("Before each test...");
     }
 
     @After
