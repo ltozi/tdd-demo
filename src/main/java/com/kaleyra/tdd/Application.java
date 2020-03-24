@@ -1,7 +1,5 @@
 package com.kaleyra.tdd;
 
-import java.util.ArrayList;
-
 public class Application {
 
     private DBservice dBservice;
@@ -28,7 +26,7 @@ public class Application {
         result = context.executeStrategy(First number, Second number)*/
 
         Context context = new Context();
-        context.setValidator(new NotNullValidator());
+        context.setValidator(new NotEmptyValidator());
 
 
         context.executeValidation(user.getName());
