@@ -1,13 +1,22 @@
 package com.kaleyra.tdd;
 
-public class RangeValidator<Integer> implements Validator<Integer> {
+import java.lang.*;
 
-    public RangeValidator(Integer min, Integer max) {
+public class RangeValidator implements Validator<Integer> {
 
-    }
+	private Integer min;
+	private Integer max;
 
-    @Override
-    public void validate(Integer str) throws IllegalArgumentException {
+	public RangeValidator(Integer min, Integer max) {
+		this.min = min;
+		this.max = max;
+	}
 
-    }
+	@Override
+	public void validate(Integer arg) throws IllegalArgumentException {
+		 if (arg < min) throw new IllegalArgumentException("too low value");
+
+		 if (arg > max) throw new IllegalArgumentException("too high value");
+		
+	}
 }
