@@ -26,7 +26,7 @@ public class Application {
         result = context.executeStrategy(First number, Second number)*/
 
         Context context = new Context();
-        context.setValidator(new NotEmptyValidator());
+        context.registerValidator(new NotEmptyValidator());
 
 
         context.executeValidation(user.getName());
