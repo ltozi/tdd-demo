@@ -23,27 +23,23 @@ public class Application {
      */
     public void save(User user) {
 
+        Context context = new Context();
 
         // Validate 'name' and 'user name'
-        Context<String> context1 = new Context<String>();
-        context1.registerValidator(new NotEmptyValidator());
-        context1.registerValidator(new RegexValidator("[a-zA-Z]{10}"));
-        context1.executeValidation(user.getName());
-        context1.executeValidation(user.getUserName());
+        context.registerValidator(new NotEmptyValidator());
+        context.registerValidator(new RegexValidator("[a-zA-Z]+"));
 
-        // Validate 'email'
-        String EMAIL_PATTERN ="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Context<String> context2 = new Context<String>();
-        context2.registerValidator(new RegexValidator( EMAIL_PATTERN));
-        context2.executeValidation(user.getEmail());
+        context.executeValidation(user.getName());
+        context.executeValidation(user.getUserName());
 
-        // Validate 'age'
-        Context<Integer> context3 = new Context<Integer>();
-        context3.registerValidator(new RangeValidator(18,60));
-        context3.executeValidation(user.getAge());
+        // Validate email
+        context.clearValidators();
+        context.registerValidator(new RegexValidator("^[A-Za-z0-9+_.-]+@(.+)$"));
+        context.executeValidation(user.getEmail());
 
-
-
+        context.clearValidators();
+        context.registerValidator(new RangeValidator(18,60));
+        context.executeValidation(user.getAge());
 
 
         //TODO other validations

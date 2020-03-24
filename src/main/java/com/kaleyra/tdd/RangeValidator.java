@@ -1,6 +1,6 @@
 package com.kaleyra.tdd;
 
-public class RangeValidator<Integer> implements Validator<Integer> {
+public class RangeValidator implements Validator<Integer> {
 
     private int min;
     private int max;

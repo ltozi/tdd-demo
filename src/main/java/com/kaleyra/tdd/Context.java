@@ -3,7 +3,7 @@ package com.kaleyra.tdd;
 import java.util.ArrayList;
 import java.util.List;
 
-class Context<T> {
+class Context {
     //private Validator validator;
 
     private List<Validator> validators = new ArrayList<>();
@@ -15,9 +15,12 @@ class Context<T> {
         validators.add(validator);
     }
 
+    public void clearValidators(){
+        validators.clear();
+    }
 
-
-    void executeValidation(T x) {
+    /* How to receive only Integer or String arguments  */
+    void executeValidation(Object x) {
         for ( Validator v : validators){
             v.validate(x);
         }
