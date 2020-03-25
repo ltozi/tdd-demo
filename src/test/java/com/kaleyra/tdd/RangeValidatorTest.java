@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Random;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class RangeValidatorTest {
@@ -54,6 +55,7 @@ public class RangeValidatorTest {
 	}
 
 	@Test
+	@Ignore //TODO see Junit best practice for providing multiple test data do a test case
 	public void shouldValidateRangeCorrectly() {
 		// Arrange
 
@@ -74,6 +76,28 @@ public class RangeValidatorTest {
 			rv.validate(-r.nextInt(400));
 		else
 			rv.validate(400 + r.nextInt(400));
+		// Assert (it is correct!)
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldGiveErrorWhenValidatorHasExclusiveMax() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20, false, false);
+
+		// Act
+		rv.validate(20);
+
+		// Assert (it is correct!)
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldGiveErrorWhenValidatorHasExclusiveMin() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20, false, false);
+
+		// Act
+		rv.validate(5);
+
 		// Assert (it is correct!)
 	}
 
