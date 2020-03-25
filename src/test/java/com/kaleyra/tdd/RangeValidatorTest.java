@@ -10,6 +10,50 @@ public class RangeValidatorTest {
 	static Random r = new Random();
 
 	@Test
+	public void rangeIsOk() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20);
+
+		// Act
+		rv.validate(10);
+
+		// Assert (it is correct!)
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldGiveErrorWhenMaxExceeded() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20);
+
+		// Act
+		rv.validate(21);
+
+		// Assert (it is correct!)
+	}
+
+	@Test
+	public void validationOkBecauseMaxInclusive() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20);
+
+		// Act
+		rv.validate(20);
+
+		// Assert (it is correct!)
+	}
+
+	@Test
+	public void validationOkBecauseMinInclusive() {
+		// Arrange
+		RangeValidator rv = new RangeValidator(5, 20);
+
+		// Act
+		rv.validate(5);
+
+		// Assert (it is correct!)
+	}
+
+	@Test
 	public void shouldValidateRangeCorrectly() {
 		// Arrange
 
