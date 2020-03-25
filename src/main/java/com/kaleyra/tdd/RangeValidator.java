@@ -24,17 +24,18 @@ public class RangeValidator implements Validator<Integer> {
 
     @Override
     public void validate(Integer arg) throws IllegalArgumentException {
-        if(isMinInclusive) {
-            if (arg < min) throw new IllegalArgumentException(arg + " is lower than min range " + min);
-        }
-        else
-            if (arg <= min) throw new IllegalArgumentException(arg + " is lower than min range " + min + " (exclusive)");
+        int downSlack = isMinInclusive ? 0 : 1;
+        int upSlack   = isMaxInclusive ? 0 : 1;
 
-        if(isMaxInclusive) {
-            if (arg > max) throw new IllegalArgumentException(arg + " is higher than max range " + max);
-        }
-        else
-            if (arg >= max) throw new IllegalArgumentException(arg + " is higher than max range " + max + " (exclusive)");
+        String minMessage = arg + " is lower than min range " + min;
+        String maxMessage = arg + " is higher than max range " + max;
+
+        minMessage = isMinInclusive ?  minMessage: minMessage + " (exclusive)";
+        maxMessage = isMinInclusive ?  maxMessage: maxMessage + " (exclusive)";
+
+        if (arg < min + downSlack) throw new IllegalArgumentException(minMessage);
+
+        if (arg > max - upSlack) throw new IllegalArgumentException(maxMessage);
 
     }
 }

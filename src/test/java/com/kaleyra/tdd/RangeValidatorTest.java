@@ -85,7 +85,12 @@ public class RangeValidatorTest {
 		RangeValidator rv = new RangeValidator(5, 20, false, false);
 
 		// Act
-		rv.validate(20);
+		try {
+			rv.validate(20);
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("(exclusive)"));
+			throw e;
+		}
 
 		// Assert (it is correct!)
 	}
@@ -96,7 +101,12 @@ public class RangeValidatorTest {
 		RangeValidator rv = new RangeValidator(5, 20, false, false);
 
 		// Act
-		rv.validate(5);
+		try {
+			rv.validate(5);
+		} catch (IllegalArgumentException e) {
+			assertTrue(e.getMessage().contains("(exclusive)"));
+			throw e;
+		}
 
 		// Assert (it is correct!)
 	}
