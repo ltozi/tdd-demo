@@ -1,9 +1,12 @@
 package com.kaleyra.tdd;
 
-class ValidateEmail implements Validator<String> {
-    public void validate(String str) throws IllegalArgumentException {
+import java.util.logging.Logger;
 
-        if (!str.matches("^[A-Za-z0-9+_.-]+@(.+)$"))
-            throw new IllegalArgumentException("Should not be null");
+class ValidateEmail implements Validator<String> {
+
+    public void validate(String str) throws IllegalArgumentException {
+        if (!str.matches("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+            throw new IllegalArgumentException("Invalid mail format: " + str + " - Expected something like name@domain.com");
+        }
     }
 }
